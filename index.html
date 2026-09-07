@@ -1,0 +1,1344 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="TOKEN RADAR AI — Crypto scanner untuk mencari token dengan potensi breakout berdasarkan market, technical, whale, derivatives, fundamental, sentiment, dan token unlock."
+  >
+
+  <meta name="theme-color" content="#0b1020">
+
+  <title>TOKEN RADAR AI — Crypto Potential Scanner</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- =========================================
+       PAGE LOADER
+  ========================================== -->
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-logo">TR</div>
+    <div class="loader-title">TOKEN RADAR AI</div>
+    <div class="loader-text">Scanning crypto market...</div>
+    <div class="loader-bar">
+      <span></span>
+    </div>
+  </div>
+
+
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+  <header class="header">
+
+    <div class="container header-inner">
+
+      <a href="#" class="brand" aria-label="Token Radar AI">
+        <span class="brand-icon">TR</span>
+
+        <span class="brand-text">
+          <strong>TOKEN RADAR</strong>
+          <small>AI CRYPTO SCANNER</small>
+        </span>
+      </a>
+
+
+      <!-- Desktop Navigation -->
+      <nav class="navbar" id="navbar">
+
+        <a href="#dashboard" class="nav-link active">
+          Dashboard
+        </a>
+
+        <a href="#scanner" class="nav-link">
+          Scanner
+        </a>
+
+        <a href="#watchlist" class="nav-link">
+          Watchlist
+        </a>
+
+        <a href="#alerts" class="nav-link">
+          Alerts
+        </a>
+
+        <a href="#about" class="nav-link">
+          About
+        </a>
+
+      </nav>
+
+
+      <div class="header-actions">
+
+        <button
+          type="button"
+          class="market-status"
+          id="marketStatus"
+          title="Status market"
+        >
+          <span class="status-dot"></span>
+          <span>LIVE</span>
+        </button>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Buka menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- Mobile overlay -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
+
+  <!-- =========================================
+       MAIN
+  ========================================== -->
+  <main>
+
+
+    <!-- =======================================
+         DASHBOARD
+    ======================================== -->
+    <section id="dashboard" class="dashboard-section">
+
+      <div class="container">
+
+        <div class="dashboard-header">
+
+          <div>
+            <span class="eyebrow">
+              AI MARKET INTELLIGENCE
+            </span>
+
+            <h1>
+              Cari token
+              <span>sebelum breakout.</span>
+            </h1>
+
+            <p>
+              Analisis market, volume, technical, whale,
+              derivatives, fundamental, sentiment dan token
+              unlock dalam satu dashboard.
+            </p>
+          </div>
+
+
+          <div class="scan-action">
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="scanNowBtn"
+            >
+              <span class="btn-icon">⌁</span>
+              Scan Market
+            </button>
+
+            <small id="lastScan">
+              Last scan: -
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===================================
+             MARKET OVERVIEW
+        ==================================== -->
+        <div class="market-overview">
+
+          <article class="stat-card">
+
+            <div class="stat-label">
+              Market Cap
+            </div>
+
+            <div
+              class="stat-value"
+              id="totalMarketCap"
+            >
+              -
+            </div>
+
+            <div
+              class="stat-change positive"
+              id="marketCapChange"
+            >
+              -
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-label">
+              24H Volume
+            </div>
+
+            <div
+              class="stat-value"
+              id="totalVolume"
+            >
+              -
+            </div>
+
+            <div
+              class="stat-change"
+              id="volumeChange"
+            >
+              -
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-label">
+              BTC Dominance
+            </div>
+
+            <div
+              class="stat-value"
+              id="btcDominance"
+            >
+              -
+            </div>
+
+            <div class="stat-change" id="btcDominanceChange">
+              -
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-label">
+              Tokens Scanned
+            </div>
+
+            <div
+              class="stat-value"
+              id="tokensScanned"
+            >
+              0
+            </div>
+
+            <div class="stat-change">
+              AI Scanner
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- ===================================
+             TOP OPPORTUNITY
+        ==================================== -->
+        <section class="featured-token">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                TOP OPPORTUNITY
+              </span>
+
+              <h2>
+                Token dengan setup terbaik
+              </h2>
+            </div>
+
+            <span class="confidence-badge">
+              AI DETECTED
+            </span>
+
+          </div>
+
+
+          <div class="featured-card">
+
+            <div class="featured-main">
+
+              <div class="token-identity">
+
+                <div
+                  class="token-logo"
+                  id="featuredTokenLogo"
+                >
+                  ?
+                </div>
+
+                <div>
+
+                  <h3 id="featuredTokenName">
+                    Scanning...
+                  </h3>
+
+                  <span id="featuredTokenSymbol">
+                    -
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="radar-score">
+
+                <div class="score-circle">
+                  <span id="featuredScore">
+                    -
+                  </span>
+
+                  <small>/100</small>
+                </div>
+
+                <div>
+
+                  <strong>
+                    Breakout Score
+                  </strong>
+
+                  <span id="featuredSignal">
+                    Waiting for scan
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- Price -->
+            <div class="featured-price">
+
+              <span>Current Price</span>
+
+              <strong id="featuredPrice">
+                -
+              </strong>
+
+              <span
+                class="price-change"
+                id="featuredPriceChange"
+              >
+                -
+              </span>
+
+            </div>
+
+
+            <!-- Prediction -->
+            <div class="prediction-grid">
+
+              <div class="prediction-box">
+
+                <span>7D Bear</span>
+
+                <strong
+                  class="negative"
+                  id="prediction7dBear"
+                >
+                  -
+                </strong>
+
+              </div>
+
+
+              <div class="prediction-box">
+
+                <span>7D Base</span>
+
+                <strong
+                  class="neutral"
+                  id="prediction7dBase"
+                >
+                  -
+                </strong>
+
+              </div>
+
+
+              <div class="prediction-box">
+
+                <span>7D Bull</span>
+
+                <strong
+                  class="positive"
+                  id="prediction7dBull"
+                >
+                  -
+                </strong>
+
+              </div>
+
+
+              <div class="prediction-box">
+
+                <span>Confidence</span>
+
+                <strong id="predictionConfidence">
+                  -
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <!-- Reasons -->
+            <div class="signal-reasons">
+
+              <h4>
+                Kenapa token ini dipilih?
+              </h4>
+
+              <ul id="featuredReasons">
+
+                <li>
+                  Menunggu hasil market scan...
+                </li>
+
+              </ul>
+
+            </div>
+
+
+            <!-- Action -->
+            <div class="featured-actions">
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="viewFeaturedBtn"
+              >
+                Lihat Analisis Lengkap
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="addFeaturedWatchlist"
+              >
+                ☆ Watchlist
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================
+             TOP 10
+        ==================================== -->
+        <section id="scanner" class="scanner-section">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                AI MARKET SCANNER
+              </span>
+
+              <h2>
+                Top 10 kandidat breakout
+              </h2>
+
+              <p>
+                Ranking berdasarkan kombinasi berbagai
+                indikator pasar.
+              </p>
+            </div>
+
+
+            <div class="scanner-filters">
+
+              <select id="timeframeFilter">
+
+                <option value="24h">
+                  24H
+                </option>
+
+                <option value="7d">
+                  7D
+                </option>
+
+                <option value="30d">
+                  30D
+                </option>
+
+              </select>
+
+
+              <select id="riskFilter">
+
+                <option value="all">
+                  Semua Risiko
+                </option>
+
+                <option value="low">
+                  Low Risk
+                </option>
+
+                <option value="medium">
+                  Medium
+                </option>
+
+                <option value="high">
+                  High Risk
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="scanner-table-wrapper">
+
+            <table class="scanner-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>#</th>
+
+                  <th>Token</th>
+
+                  <th>Price</th>
+
+                  <th>24H</th>
+
+                  <th>Volume</th>
+
+                  <th>Score</th>
+
+                  <th>Signal</th>
+
+                  <th>Risk</th>
+
+                  <th></th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody id="scannerTableBody">
+
+                <tr class="loading-row">
+
+                  <td colspan="9">
+
+                    <div class="table-loader">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+
+                    <p>
+                      Mengambil data market...
+                    </p>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================
+             SCORING
+        ==================================== -->
+        <section class="scoring-section">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                AI SCORING ENGINE
+              </span>
+
+              <h2>
+                Bagaimana skor dihitung?
+              </h2>
+            </div>
+
+          </div>
+
+
+          <div class="score-grid">
+
+            <article class="score-card">
+
+              <div class="score-icon">
+                📈
+              </div>
+
+              <div>
+                <h3>Technical</h3>
+                <span>15%</span>
+              </div>
+
+            </article>
+
+
+            <article class="score-card">
+
+              <div class="score-icon">
+                📊
+              </div>
+
+              <div>
+                <h3>Volume</h3>
+                <span>15%</span>
+              </div>
+
+            </article>
+
+
+            <article class="score-card">
+
+              <div class="score-icon">
+                🐋
+              </div>
+
+              <div>
+                <h3>Whale</h3>
+                <span>20%</span>
+              </div>
+
+            </article>
+
+
+            <article class="score-card">
+
+              <div class="score-icon">
+                💹
+              </div>
+
+              <div>
+                <h3>Derivatives</h3>
+                <span>15%</span>
+              </div>
+
+            </article>
+
+
+            <article class="score-card">
+
+              <div class="score-icon">
+                💰
+              </div>
+
+              <div>
+                <h3>Fundamental</h3>
+                <span>10%</span>
+              </div>
+
+            </article>
+
+
+            <article class="score-card">
+
+              <div class="score-icon">
+                🔥
+              </div>
+
+              <div>
+                <h3>Sentiment</h3>
+                <span>10%</span>
+              </div>
+
+            </article>
+
+
+            <article class="score-card">
+
+              <div class="score-icon">
+                🔓
+              </div>
+
+              <div>
+                <h3>Unlock Risk</h3>
+                <span>10%</span>
+              </div>
+
+            </article>
+
+
+            <article class="score-card">
+
+              <div class="score-icon">
+                🚀
+              </div>
+
+              <div>
+                <h3>Catalyst</h3>
+                <span>5%</span>
+              </div>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================
+             MARKET CHART
+        ==================================== -->
+        <section class="chart-section">
+
+          <div class="section-heading">
+
+            <div>
+              <span class="eyebrow">
+                MARKET MOMENTUM
+              </span>
+
+              <h2>
+                Market overview
+              </h2>
+            </div>
+
+            <select id="chartPeriod">
+
+              <option value="24h">
+                24H
+              </option>
+
+              <option value="7d">
+                7D
+              </option>
+
+              <option value="30d">
+                30D
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="chart-card">
+
+            <canvas
+              id="marketChart"
+              aria-label="Market momentum chart"
+            ></canvas>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================
+             WATCHLIST
+        ==================================== -->
+        <section id="watchlist" class="watchlist-section">
+
+          <div class="section-heading">
+
+            <div>
+
+              <span class="eyebrow">
+                MY WATCHLIST
+              </span>
+
+              <h2>
+                Token yang Anda pantau
+              </h2>
+
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="clearWatchlist"
+            >
+              Hapus Semua
+            </button>
+
+          </div>
+
+
+          <div
+            class="watchlist-grid"
+            id="watchlistGrid"
+          >
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                ☆
+              </div>
+
+              <h3>
+                Watchlist masih kosong
+              </h3>
+
+              <p>
+                Tambahkan token dari hasil scanner
+                untuk memantaunya.
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================
+             ALERTS
+        ==================================== -->
+        <section id="alerts" class="alerts-section">
+
+          <div class="section-heading">
+
+            <div>
+
+              <span class="eyebrow">
+                BREAKOUT ALERT
+              </span>
+
+              <h2>
+                Sinyal terbaru
+              </h2>
+
+            </div>
+
+            <span class="live-indicator">
+              ● LIVE
+            </span>
+
+          </div>
+
+
+          <div
+            class="alerts-list"
+            id="alertsList"
+          >
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                🔔
+              </div>
+
+              <h3>
+                Belum ada breakout alert
+              </h3>
+
+              <p>
+                Alert akan muncul ketika scanner
+                menemukan perubahan signifikan.
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================
+             TOKEN UNLOCK WARNING
+        ==================================== -->
+        <section class="unlock-section">
+
+          <div class="section-heading">
+
+            <div>
+
+              <span class="eyebrow">
+                SUPPLY RISK
+              </span>
+
+              <h2>
+                Upcoming token unlock
+              </h2>
+
+              <p>
+                Token unlock besar dapat meningkatkan
+                tekanan jual.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="unlock-grid"
+            id="unlockGrid"
+          >
+
+            <div class="empty-state">
+
+              <div class="empty-icon">
+                🔓
+              </div>
+
+              <h3>
+                Memuat data unlock...
+              </h3>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================
+             DISCLAIMER
+        ==================================== -->
+        <section class="disclaimer-section">
+
+          <div class="disclaimer-card">
+
+            <strong>
+              ⚠️ Penting
+            </strong>
+
+            <p>
+              TOKEN RADAR AI memberikan analisis berbasis
+              data dan probabilitas, bukan jaminan harga.
+              Prediksi bull/base/bear merupakan estimasi
+              berdasarkan indikator yang tersedia dan dapat
+              salah. Cryptocurrency memiliki risiko kehilangan
+              modal yang tinggi. Selalu lakukan riset sendiri
+              sebelum mengambil keputusan investasi.
+            </p>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================
+         TOKEN DETAIL MODAL
+    ======================================== -->
+    <div
+      class="modal"
+      id="tokenModal"
+      aria-hidden="true"
+    >
+
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+
+      <div
+        class="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTokenName"
+      >
+
+        <button
+          type="button"
+          class="modal-close"
+          id="modalClose"
+          aria-label="Tutup"
+        >
+          ×
+        </button>
+
+
+        <div class="modal-header">
+
+          <div
+            class="token-logo"
+            id="modalTokenLogo"
+          >
+            ?
+          </div>
+
+          <div>
+
+            <h2 id="modalTokenName">
+              -
+            </h2>
+
+            <span id="modalTokenSymbol">
+              -
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- Modal Score -->
+        <div class="modal-score">
+
+          <span>Breakout Score</span>
+
+          <strong id="modalScore">
+            -
+          </strong>
+
+        </div>
+
+
+        <!-- Modal Chart -->
+        <div class="modal-chart">
+
+          <canvas id="tokenChart"></canvas>
+
+        </div>
+
+
+        <!-- Indicators -->
+        <div class="indicator-grid">
+
+          <div class="indicator">
+
+            <span>Technical</span>
+
+            <strong id="modalTechnical">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="indicator">
+
+            <span>Volume</span>
+
+            <strong id="modalVolume">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="indicator">
+
+            <span>Whale</span>
+
+            <strong id="modalWhale">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="indicator">
+
+            <span>Derivatives</span>
+
+            <strong id="modalDerivatives">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="indicator">
+
+            <span>Fundamental</span>
+
+            <strong id="modalFundamental">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="indicator">
+
+            <span>Sentiment</span>
+
+            <strong id="modalSentiment">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="indicator">
+
+            <span>Unlock Risk</span>
+
+            <strong id="modalUnlock">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="indicator">
+
+            <span>Catalyst</span>
+
+            <strong id="modalCatalyst">
+              -
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- Prediction -->
+        <div class="modal-prediction">
+
+          <h3>
+            AI Scenario Prediction
+          </h3>
+
+          <div class="prediction-grid">
+
+            <div class="prediction-box">
+
+              <span>Bear</span>
+
+              <strong
+                class="negative"
+                id="modalBear"
+              >
+                -
+              </strong>
+
+            </div>
+
+
+            <div class="prediction-box">
+
+              <span>Base</span>
+
+              <strong
+                class="neutral"
+                id="modalBase"
+              >
+                -
+              </strong>
+
+            </div>
+
+
+            <div class="prediction-box">
+
+              <span>Bull</span>
+
+              <strong
+                class="positive"
+                id="modalBull"
+              >
+                -
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="modalWatchlist"
+          >
+            ☆ Tambahkan Watchlist
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+  <footer class="footer" id="about">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+
+          <a href="#" class="brand">
+
+            <span class="brand-icon">
+              TR
+            </span>
+
+            <span class="brand-text">
+
+              <strong>
+                TOKEN RADAR
+              </strong>
+
+              <small>
+                AI CRYPTO SCANNER
+              </small>
+
+            </span>
+
+          </a>
+
+          <p>
+            Data-driven crypto market intelligence
+            untuk membantu menemukan potensi breakout
+            dan memahami risikonya.
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <h4>
+            Scanner
+          </h4>
+
+          <a href="#scanner">
+            Top 10
+          </a>
+
+          <a href="#watchlist">
+            Watchlist
+          </a>
+
+          <a href="#alerts">
+            Alerts
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <h4>
+            Data
+          </h4>
+
+          <span>
+            Market
+          </span>
+
+          <span>
+            On-chain
+          </span>
+
+          <span>
+            Derivatives
+          </span>
+
+          <span>
+            Fundamentals
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <h4>
+            Status
+          </h4>
+
+          <span>
+            API: <b id="apiStatus">Checking...</b>
+          </span>
+
+          <span>
+            Database: <b id="databaseStatus">Checking...</b>
+          </span>
+
+          <span>
+            Scanner: <b id="scannerStatus">Ready</b>
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © <span id="currentYear"></span>
+          TOKEN RADAR AI
+        </span>
+
+        <span>
+          Data-driven, not financial advice.
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================================
+       JAVASCRIPT
+  ========================================== -->
+
+  <!-- Main JS -->
+  <script src="js/script.js"></script>
+
+</body>
+</html>
+```
